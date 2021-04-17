@@ -1,0 +1,29 @@
+import { history } from 'umi';
+import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Menu, Dropdown } from 'antd';
+import styles from './index.less';
+
+export default () => {
+    const handleMenuClick = ({ key }) => {
+        console.log(key)
+    }
+    const menuHeaderDropdown = (
+        <Menu className={styles.menu} selectedKeys={[]} onClick={handleMenuClick}>
+            <Menu.Item key="settings">
+                <SettingOutlined /> 个人设置
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key="logout">
+                <LogoutOutlined /> 退出登录
+            </Menu.Item>
+        </Menu>
+    );
+    return (
+        <Dropdown overlay={menuHeaderDropdown}>
+            <span className={`${styles.action} ${styles.account}`}>
+                <Avatar size="small" className={styles.avatar} alt="avatar" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" />
+                <span className={`${styles.name} anticon`}>hello</span>
+            </span>
+        </Dropdown>
+    )
+}
