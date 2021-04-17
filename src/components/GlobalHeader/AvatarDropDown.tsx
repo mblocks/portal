@@ -7,7 +7,7 @@ export default () => {
     const { initialState } = useModel('@@initialState');
     const { currentUser } = initialState;
     const handleMenuClick = ({ key }) => {
-        console.log(key)
+        history.push(`/${key}`);
     }
     const menuHeaderDropdown = (
         <Menu className={styles.menu} selectedKeys={[]} onClick={handleMenuClick}>
