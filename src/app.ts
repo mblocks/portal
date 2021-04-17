@@ -2,8 +2,8 @@ import { accountInfo } from '@/services/account';
 
 
 async function getInitialData() {
-  const user = await accountInfo();
-  return { user };
+  const currentUser = await accountInfo();
+  return { currentUser };
 }
 
 const initData = getInitialData();

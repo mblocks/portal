@@ -6,13 +6,13 @@ import RightConent from '@/components/GlobalHeader/RightConent';
 
 export default ({ children }) => {
     const { initialState, loading } = useModel('@@initialState');
-    const { user } = initialState;
+    const { currentUser } = initialState;
     const { pathname, search } = location;
     const queryString = stringify({
         redirect: pathname + search
     });
 
-    if (user == null) {
+    if (currentUser == null) {
         return <Redirect to={`/login?${queryString}`} />;
     }
 
