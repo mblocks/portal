@@ -32,3 +32,12 @@ export default {
 
 
 ```
+
+## Release
+use `.github/workflows/publish.yml` auto release
+```bash
+# eg:
+git tag 0.1.5        
+git push origin 0.1.5
+
+```
