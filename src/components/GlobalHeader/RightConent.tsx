@@ -1,4 +1,4 @@
-import Avatar from './AvatarDropdown';
+import Avatar from './AvatarDropDown';
 import styles from './index.less';
 
 
