@@ -1,14 +1,21 @@
+import { useModel } from 'umi';
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { message, PageHeader } from 'antd';
+import { updateUserInfo } from '@/services/account';
+
 
 export default () => {
+    const { initialState, setInitialState } = useModel('@@initialState');
     return (<>
         <PageHeader title="用户信息" />
         <ProForm
             style={{ width: '50%' }}
             onFinish={async (values) => {
-                console.log(values);
-                message.success('修改成功');
+                const result = await updateUserInfo({ data: values })
+                if (result.response.status == 200) {
+                    message.success('修改成功');
+                    setInitialState({ ...initialState, userinfo: { ...initialState.userinfo, ...result.data } })
+                }
             }}
             submitter={{
                 searchConfig: {

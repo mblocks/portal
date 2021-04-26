@@ -6,19 +6,21 @@ import RightConent from '@/components/GlobalHeader/RightConent';
 
 export default ({ children }) => {
     const { initialState, loading } = useModel('@@initialState');
-    const { currentUser } = initialState;
+    const { userinfo, title, logo } = initialState;
     const { pathname, search } = location;
     const queryString = stringify({
         redirect: pathname + search
     });
 
-    if (currentUser == null) {
+    if (!userinfo) {
         return <Redirect to={`/login?${queryString}`} />;
     }
 
     return (
         <ProLayout
-            title="helloworld"
+            title={title}
+            logo={logo}
+            loading={loading}
             layout="top"
             navTheme="light"
             footerRender={() => <DefaultFooter copyright="Origins" links={[]} />}

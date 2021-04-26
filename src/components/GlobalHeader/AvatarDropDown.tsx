@@ -5,7 +5,7 @@ import styles from './index.less';
 
 export default () => {
     const { initialState } = useModel('@@initialState');
-    const { currentUser } = initialState;
+    const { userinfo } = initialState;
     const handleMenuClick = ({ key }) => {
         history.push(`/${key}`);
     }
@@ -23,8 +23,8 @@ export default () => {
     return (
         <Dropdown overlay={menuHeaderDropdown}>
             <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} alt="avatar" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" />
-                <span className={`${styles.name} anticon`}>{currentUser.display_name || currentUser.user_name}</span>
+                <Avatar size="small" className={styles.avatar} alt="avatar" src={userinfo.avatar} />
+                <span className={`${styles.name} anticon`}>{userinfo.display_name || userinfo.user_name}</span>
             </span>
         </Dropdown>
     )

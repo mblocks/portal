@@ -1,6 +1,7 @@
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { message, PageHeader } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
+import { updatePassword } from '@/services/account';
 
 export default () => {
     return (<>
@@ -8,8 +9,10 @@ export default () => {
         <ProForm
             style={{ width: '50%' }}
             onFinish={async (values) => {
-                console.log(values);
-                message.success('修改成功');
+                const result = await updatePassword({ data:values })
+                if(result.response.status == 200){
+                    message.success('修改成功');
+                }
             }}
             submitter={{
                 searchConfig: {
@@ -27,7 +30,8 @@ export default () => {
                     prefix: <LockOutlined />,
                 }}
                 name={['password']}
-                placeholder="请输入新密码"
+                label="旧密码"
+                placeholder=""
                 rules={[
                     {
                         required: true,
@@ -40,9 +44,25 @@ export default () => {
                     size: 'large',
                     prefix: <LockOutlined />,
                 }}
-                dependencies={['password']}
-                name={['confirm_password']}
-                placeholder="请再次输入新密码"
+                name={['new_password']}
+                label="请输入新密码"
+                placeholder=""
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入新密码!',
+                    }
+                ]}
+            />
+            <ProFormText.Password
+                fieldProps={{
+                    size: 'large',
+                    prefix: <LockOutlined />,
+                }}
+                dependencies={['new_password']}
+                name={['confirm_new_password']}
+                label="请再次输入新密码"
+                placeholder=""
                 rules={[
                     {
                         required: true,
@@ -50,7 +70,7 @@ export default () => {
                     },
                     ({ getFieldValue }) => ({
                         validator(_, value) {
-                            if (!value || getFieldValue(['password']) === value) {
+                            if (!value || getFieldValue(['new_password']) === value) {
                                 return Promise.resolve();
                             }
                             return Promise.reject(new Error('The two passwords that you entered do not match!'));
