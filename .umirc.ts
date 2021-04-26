@@ -9,6 +9,7 @@ export default defineConfig({
             apps: [],
         },
     },
+    dynamicImport:{},
     routes: [
         { path: '/login', component: '@/pages/account/login' },
         { path: '/fetch_password', component: '@/pages/account/fetch_password' },
