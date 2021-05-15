@@ -1,31 +1,39 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-    nodeModulesTransform: {
-        type: 'none',
+  nodeModulesTransform: {
+    type: 'none',
+  },
+  qiankun: {
+    master: {
+      apps: [],
     },
-    qiankun: {
-        master: {
-            apps: [],
-        },
-    },
-    dynamicImport:{},
-    routes: [
-        { path: '/login', component: '@/pages/account/login' },
-        { path: '/fetch_password', component: '@/pages/account/fetch_password' },
-        { path: '/reset_password', component: '@/pages/account/reset_password' },
+  },
+  routes: [
+    { path: '/login', component: '@/pages/account/login' },
+    { path: '/fetch_password', component: '@/pages/account/fetch_password' },
+    { path: '/reset_password', component: '@/pages/account/reset_password' },
+    {
+      path: '/',
+      component: '@/layouts/SecurityLayout',
+      routes: [
         {
-            path: '/', component: '@/layouts/SecurityLayout',
-            routes: [
-                { path: '/settings', component: '@/pages/account/settings/layout',
-                    routes:[
-                        { path: '/settings', component: '@/pages/account/settings/userinfo' },
-                        { path: '/settings/security', component: '@/pages/account/settings/security' },
-                    ] 
-                },
-                { path: '/', component: '@/pages/index' },
-            ]
+          path: '/settings',
+          component: '@/pages/account/settings/layout',
+          routes: [
+            {
+              path: '/settings',
+              component: '@/pages/account/settings/userinfo',
+            },
+            {
+              path: '/settings/security',
+              component: '@/pages/account/settings/security',
+            },
+          ],
         },
-    ],
-    fastRefresh: {},
+        { path: '/', component: '@/pages/index' },
+      ],
+    },
+  ],
+  fastRefresh: {},
 });
