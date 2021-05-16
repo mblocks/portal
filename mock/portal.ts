@@ -21,7 +21,7 @@ export default {
   'POST /api/settings/userinfo': (req: Request, res: Response) => {
     res.send(req.body);
   },
-  'GET /api/': (req: Request, res: Response) => {
+  'GET /api/initdata': (req: Request, res: Response) => {
     res.send({
       logo:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
