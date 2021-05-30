@@ -21,16 +21,22 @@ export default {
   'POST /api/settings/userinfo': (req: Request, res: Response) => {
     res.send(req.body);
   },
-  'GET /api/initdata': (req: Request, res: Response) => {
+  'GET /api/whoami': (req: Request, res: Response) => {
+    //res.status(401);
+    //res.send({joonwood:'who are you?'});
+    res.send({
+      userinfo: {
+        user_name: 'hello',
+        apps: [{ name: 'admin', title: 'admin site' }],
+      },
+    });
+  },
+  'GET /api/': (req: Request, res: Response) => {
     res.send({
       logo:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
       title: 'Ant Design',
       description: 'Ant Design 是西湖区最具影响力的 Web 设计规范',
-      user: {
-        user_name: 'hello',
-        apps: [{ name: 'admin', title: 'admin site' }],
-      },
     });
   },
 };
