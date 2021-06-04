@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 
 export default {
-  'POST /api/login': (req: Request, res: Response) => {
+  'POST /api/welcome/login': (req: Request, res: Response) => {
     res.send({
       display_name: 'displayname',
       avatar:
         'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     });
   },
-  'POST /api/join': (req: Request, res: Response) => {
+  'POST /api/welcome/join': (req: Request, res: Response) => {
     res.send({
       display_name: req.body.user_name,
       avatar:
@@ -31,7 +31,7 @@ export default {
       },
     });
   },
-  'GET /api/': (req: Request, res: Response) => {
+  'GET /api/welcome/': (req: Request, res: Response) => {
     res.send({
       logo:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

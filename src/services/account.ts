@@ -1,7 +1,7 @@
 import { request } from 'umi';
 
 export async function accountLogin({ data }): Promise<any> {
-  return request(`/api/login`, {
+  return request(`/api/welcome/login`, {
     method: 'post',
     data,
     getResponse: true,
@@ -12,7 +12,7 @@ export async function accountLogin({ data }): Promise<any> {
 }
 
 export async function accountJoin({ data }): Promise<any> {
-  return request(`/api/join`, {
+  return request(`/api/welcome/join`, {
     method: 'post',
     data,
     getResponse: true,
@@ -50,7 +50,7 @@ export async function getUserInfo(): Promise<any> {
 
 export async function initialData(): Promise<any> {
   const res = await request(`/api/whoami`).catch(function (error) {
-    return request(`/api/`);
+    return request(`/api/welcome/`);
   });
   return res;
 }
