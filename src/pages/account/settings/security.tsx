@@ -9,7 +9,7 @@ export default () => {
 
   return (
     <>
-      <PageHeader title="设置密码" />
+      <PageHeader title="Change password" />
       <ProForm
         form={form}
         style={{ width: '50%' }}
@@ -37,12 +37,12 @@ export default () => {
             prefix: <LockOutlined />,
           }}
           name={['password']}
-          label="旧密码"
+          label="Old password"
           placeholder=""
           rules={[
             {
               required: true,
-              message: '请输入新密码!',
+              message: 'Please input old password!',
             },
           ]}
         />
@@ -52,12 +52,12 @@ export default () => {
             prefix: <LockOutlined />,
           }}
           name={['new_password']}
-          label="请输入新密码"
+          label="New password"
           placeholder=""
           rules={[
             {
               required: true,
-              message: '请输入新密码!',
+              message: 'Please input new password!',
             },
           ]}
         />
@@ -68,12 +68,12 @@ export default () => {
           }}
           dependencies={['new_password']}
           name={['confirm_new_password']}
-          label="请再次输入新密码"
+          label="Confirm new password"
           placeholder=""
           rules={[
             {
               required: true,
-              message: '请再次输入新密码!',
+              message: 'Please input confirm new password!',
             },
             ({ getFieldValue }) => ({
               validator(_, value) {

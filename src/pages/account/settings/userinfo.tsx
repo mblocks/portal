@@ -14,14 +14,14 @@ export default () => {
   }, []);
   return (
     <>
-      <PageHeader title="用户信息" />
+      <PageHeader title="Public profile" />
       <ProForm
         form={form}
         style={{ width: '50%' }}
         onFinish={async (values) => {
           const result = await updateUserInfo({ data: values });
           if (result.response.status == 200) {
-            message.success('修改成功');
+            message.success('success!');
             setInitialState({
               ...initialState,
               userinfo: { ...initialState.userinfo, ...result.data },
@@ -30,7 +30,7 @@ export default () => {
         }}
         submitter={{
           searchConfig: {
-            submitText: '保存',
+            submitText: 'Save',
           },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
@@ -42,7 +42,7 @@ export default () => {
           fieldProps={{
             size: 'large',
           }}
-          label="昵称"
+          label="Display name"
           name={['display_name']}
           placeholder="请输入昵称"
           rules={[
