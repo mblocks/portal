@@ -49,8 +49,8 @@ export async function getUserInfo(): Promise<any> {
 }
 
 export async function initialData(): Promise<any> {
-  const res = await request(`/api/whoami`).catch(function (error) {
-    return request(`/api/welcome/`);
+  const res = await request(`/api/userinfo`).catch(function () {
+    return request(`/api/welcome`);
   });
   return res;
 }

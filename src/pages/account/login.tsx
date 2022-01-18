@@ -90,6 +90,7 @@ export default () => {
               const result = await accountJoin({ data });
               if (result.response.status == 200) {
                 setInitialState(result.data);
+                location.href = '/';
               } else {
                 joinForm.setFields(formatErrors(result.data));
               }

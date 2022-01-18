@@ -12,7 +12,14 @@ export default () => {
   const { userinfo } = initialState;
   const is_admin = userinfo.apps?.filter((v) => v.name == 'admin').length > 0;
   const handleMenuClick = ({ key }) => {
-    history.push(`/${key}`);
+    if (key == 'logout') {
+      const { pathname, search } = location;
+      location.href = `/api/logout?redirect=${encodeURIComponent(
+        pathname + search,
+      )}`;
+    } else {
+      history.push(`/${key}`);
+    }
   };
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={handleMenuClick}>
