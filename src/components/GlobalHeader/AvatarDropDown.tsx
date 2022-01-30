@@ -10,7 +10,7 @@ import styles from './index.less';
 export default () => {
   const { initialState } = useModel('@@initialState');
   const { userinfo } = initialState;
-  const is_admin = userinfo.apps?.filter((v) => v.name == 'admin').length > 0;
+  const is_admin = userinfo.apps?.filter((v) => v.name == 'origin').length > 0;
   const handleMenuClick = ({ key }) => {
     if (key == 'logout') {
       const { pathname, search } = location;
