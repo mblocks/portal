@@ -45,7 +45,7 @@ export default () => {
               if (result.errors) {
                 loginForm.setFields(result.errors);
               } else {
-                setInitialState(result);
+                window.location.reload(true);
               }
             }}
             submitter={{
