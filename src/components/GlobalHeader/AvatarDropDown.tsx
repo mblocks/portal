@@ -9,8 +9,8 @@ import styles from './index.less';
 
 export default () => {
   const { initialState } = useModel('@@initialState');
-  const { userinfo } = initialState;
-  const is_admin = userinfo.apps?.filter((v) => v.name == 'admin').length > 0;
+  const { userinfo, apps } = initialState;
+  const is_admin = apps.filter((v) => v.name == 'admin').length > 0;
   const handleMenuClick = ({ key }) => {
     if (key == 'logout') {
       const { pathname, search } = location;
@@ -23,10 +23,18 @@ export default () => {
   };
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={handleMenuClick}>
-      <Menu.Item key="settings">Your profile</Menu.Item>
-      {is_admin && <Menu.Item key="admin">System admin</Menu.Item>}
+      <Menu.Item key="settings" icon={<UserOutlined />}>
+        Your profile
+      </Menu.Item>
+      {is_admin && (
+        <Menu.Item key="admin" icon={<SettingOutlined />}>
+          System admin
+        </Menu.Item>
+      )}
       <Menu.Divider />
-      <Menu.Item key="logout">Sign out</Menu.Item>
+      <Menu.Item icon={<LogoutOutlined />} key="logout">
+        Sign out
+      </Menu.Item>
     </Menu>
   );
   return (
