@@ -2,7 +2,6 @@ import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { message, PageHeader } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 import { updatePassword } from '@/services/account';
-import { formatErrors } from '@/utils';
 
 export default () => {
   const [form] = ProForm.useForm();
@@ -15,10 +14,10 @@ export default () => {
         style={{ width: '50%' }}
         onFinish={async (values) => {
           const result = await updatePassword({ data: values });
-          if (result.response.status == 200) {
-            message.success('修改成功');
+          if (result.errors) {
+            form.setFields(result.errors);
           } else {
-            form.setFields(formatErrors(result.data));
+            message.success('修改成功');
           }
         }}
         submitter={{

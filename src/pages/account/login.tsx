@@ -4,7 +4,6 @@ import { Tabs } from 'antd';
 import ProForm, { ProFormText, ProFormCheckbox } from '@ant-design/pro-form';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { accountLogin, accountJoin } from '@/services/account';
-import { formatErrors } from '@/utils';
 import styles from './login.less';
 
 export default () => {
@@ -43,10 +42,10 @@ export default () => {
             form={loginForm}
             onFinish={async (data) => {
               const result = await accountLogin({ data });
-              if (result.response.status == 200) {
-                setInitialState(result.data);
+              if (result.errors) {
+                loginForm.setFields(result.errors);
               } else {
-                loginForm.setFields(formatErrors(result.data));
+                setInitialState(result);
               }
             }}
             submitter={{
@@ -88,11 +87,11 @@ export default () => {
             form={joinForm}
             onFinish={async (data) => {
               const result = await accountJoin({ data });
-              if (result.response.status == 200) {
-                setInitialState(result.data);
-                location.href = '/';
+              if (result.errors) {
+                joinForm.setFields(result.errors);
               } else {
-                joinForm.setFields(formatErrors(result.data));
+                setInitialState(result);
+                location.href = '/';
               }
             }}
             submitter={{

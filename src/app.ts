@@ -5,22 +5,17 @@ async function getInitialData() {
   const apps = [];
   const routes = [];
   if (data.userinfo && data.userinfo.apps) {
-    data.userinfo.apps
-      .map((v) => ({
+    data.userinfo.apps.forEach((v) => {
+      apps.push({
         ...v,
-        name: v.name == 'origin' ? 'admin' : v.name,
-      }))
-      .forEach((v) => {
-        apps.push({
-          ...v,
-          entry: `/load/${v.name}`,
-          props: { userinfo: data.userinfo },
-        });
-        routes.push({
-          path: `/${v.name}`,
-          microApp: v.name,
-        });
+        entry: `/load/${v.name}`,
+        props: { userinfo: data.userinfo },
       });
+      routes.push({
+        path: `/${v.name}`,
+        microApp: v.name,
+      });
+    });
   }
   return {
     ...data,

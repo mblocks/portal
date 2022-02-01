@@ -9,10 +9,7 @@ import styles from './index.less';
 
 export default () => {
   const { initialState } = useModel('@@initialState');
-  const { userinfo, apps } = initialState;
-  const is_admin = apps
-    ? apps.filter((v) => v.name == 'admin').length > 0
-    : false;
+  const { userinfo } = initialState;
   const handleMenuClick = ({ key }) => {
     if (key == 'logout') {
       const { pathname, search } = location;
@@ -28,7 +25,7 @@ export default () => {
       <Menu.Item key="settings" icon={<UserOutlined />}>
         Your profile
       </Menu.Item>
-      {is_admin && (
+      {userinfo.admin == true && (
         <Menu.Item key="admin" icon={<SettingOutlined />}>
           System admin
         </Menu.Item>
