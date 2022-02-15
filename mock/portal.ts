@@ -21,12 +21,23 @@ export default {
   'POST /api/settings/userinfo': (req: Request, res: Response) => {
     res.send(req.body);
   },
-  'GET /api/whoami': (req: Request, res: Response) => {
-    //res.status(401);
-    //res.send({joonwood:'who are you?'});
+  'GET /api/settings/userinfo': (req: Request, res: Response) => {
     res.send({
       userinfo: {
         user_name: 'hello',
+        apps: [{ name: 'admin', title: 'admin site' }],
+      },
+    });
+  },
+  'GET /api/userinfo': (req: Request, res: Response) => {
+    //res.status(401);
+    //res.send({joonwood:'who are you?'});
+    res.send({
+      title: 'Mblocks',
+      userinfo: {
+        user_name: 'hello',
+        avatar:
+          'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
         apps: [{ name: 'admin', title: 'admin site' }],
       },
     });
