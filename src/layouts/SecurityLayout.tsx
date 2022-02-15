@@ -1,4 +1,4 @@
-import { useModel, Redirect } from 'umi';
+import { useModel, Redirect, Link } from 'umi';
 import { stringify } from 'querystring';
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import RightConent from '@/components/GlobalHeader/RightConent';
@@ -20,6 +20,11 @@ export default ({ children }) => {
       title={title}
       logo={logo}
       loading={loading}
+      menuHeaderRender={(logo, title) => (
+        <Link to="/">
+          {logo} {title}
+        </Link>
+      )}
       layout="top"
       navTheme="light"
       footerRender={() => <DefaultFooter copyright="Mblocks" links={[]} />}
