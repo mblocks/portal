@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useModel } from 'umi';
+import { useModel, useIntl } from 'umi';
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { message, PageHeader } from 'antd';
 import { getUserInfo, updateUserInfo } from '@/services/account';
 
 export default () => {
+  const intl = useIntl();
   const { initialState, setInitialState } = useModel('@@initialState');
   const [form] = ProForm.useForm();
   useEffect(() => {
@@ -14,14 +15,16 @@ export default () => {
   }, []);
   return (
     <>
-      <PageHeader title="Public profile" />
+      <PageHeader title={intl.formatMessage({ id: 'portal.profile.title' })} />
       <ProForm
         form={form}
         style={{ width: '50%' }}
         onFinish={async (values) => {
           const result = await updateUserInfo({ data: values });
           if (result.response.status == 200) {
-            message.success('success!');
+            message.success(
+              intl.formatMessage({ id: 'portal.messages.success' }),
+            );
             setInitialState({
               ...initialState,
               userinfo: { ...initialState.userinfo, ...result.data },
@@ -30,7 +33,7 @@ export default () => {
         }}
         submitter={{
           searchConfig: {
-            submitText: 'Save',
+            submitText: intl.formatMessage({ id: 'portal.actions.save' }),
           },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
@@ -42,13 +45,14 @@ export default () => {
           fieldProps={{
             size: 'large',
           }}
-          label="Display name"
+          label={intl.formatMessage({ id: 'portal.profile.display_name' })}
           name={['display_name']}
-          placeholder="请输入昵称"
           rules={[
             {
               required: true,
-              message: '请输入昵称!',
+              message:
+                intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                intl.formatMessage({ id: 'portal.profile.display_name' }),
             },
           ]}
         />

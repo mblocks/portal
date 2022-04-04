@@ -1,4 +1,4 @@
-import { history, useModel } from 'umi';
+import { history, useModel, useIntl } from 'umi';
 import {
   LogoutOutlined,
   SettingOutlined,
@@ -8,6 +8,7 @@ import { Avatar, Menu, Dropdown } from 'antd';
 import styles from './index.less';
 
 export default () => {
+  const intl = useIntl();
   const { initialState } = useModel('@@initialState');
   const { userinfo } = initialState;
   const handleMenuClick = ({ key }) => {
@@ -23,16 +24,16 @@ export default () => {
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={handleMenuClick}>
       <Menu.Item key="settings" icon={<UserOutlined />}>
-        Your profile
+        {intl.formatMessage({ id: 'portal.profile' })}
       </Menu.Item>
       {userinfo.admin == true && (
         <Menu.Item key="admin" icon={<SettingOutlined />}>
-          System admin
+          {intl.formatMessage({ id: 'portal.admin' })}
         </Menu.Item>
       )}
       <Menu.Divider />
       <Menu.Item icon={<LogoutOutlined />} key="logout">
-        Sign out
+        {intl.formatMessage({ id: 'portal.logout' })}
       </Menu.Item>
     </Menu>
   );
@@ -43,7 +44,9 @@ export default () => {
           size="small"
           className={styles.avatar}
           alt="avatar"
-          src={userinfo.avatar}
+          {...(userinfo.avatar
+            ? { src: userinfo.avatar }
+            : { icon: <UserOutlined /> })}
         />
         <span className={`${styles.name} anticon`}>
           {userinfo.display_name || userinfo.user_name}

@@ -1,8 +1,9 @@
-import { history, useLocation } from 'umi';
+import { history, useLocation, useIntl } from 'umi';
 import { Menu, Row, Col, Card } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 
 export default ({ children }) => {
+  const intl = useIntl();
   const location = useLocation();
   const { pathname } = location;
 
@@ -16,8 +17,12 @@ export default ({ children }) => {
               selectedKeys={[pathname]}
               onClick={({ key }) => history.push(key)}
             >
-              <Menu.Item key="/settings">Profile</Menu.Item>
-              <Menu.Item key="/settings/security">Security</Menu.Item>
+              <Menu.Item key="/settings">
+                {intl.formatMessage({ id: 'portal.profile' })}
+              </Menu.Item>
+              <Menu.Item key="/settings/security">
+                {intl.formatMessage({ id: 'portal.security' })}
+              </Menu.Item>
             </Menu>
           </Col>
           <Col span={17} push={1} style={{ backgroundColor: '#fff' }}>

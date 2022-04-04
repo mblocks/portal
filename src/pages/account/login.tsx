@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useModel, useLocation, Redirect } from 'umi';
+import { Link, useModel, useLocation, Redirect, useIntl } from 'umi';
 import { Tabs } from 'antd';
 import ProForm, { ProFormText, ProFormCheckbox } from '@ant-design/pro-form';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import styles from './login.less';
 export default () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { title, description, logo, userinfo } = initialState;
+  const intl = useIntl();
   const location = useLocation();
   const [loginForm] = ProForm.useForm();
   const [joinForm] = ProForm.useForm();
@@ -37,7 +38,10 @@ export default () => {
         {description}
       </div>
       <Tabs>
-        <Tabs.TabPane tab="登录" key="login">
+        <Tabs.TabPane
+          tab={intl.formatMessage({ id: 'portal.login.title' })}
+          key="login"
+        >
           <ProForm
             form={loginForm}
             onFinish={async (data) => {
@@ -49,7 +53,9 @@ export default () => {
               }
             }}
             submitter={{
-              searchConfig: { submitText: '登录' },
+              searchConfig: {
+                submitText: intl.formatMessage({ id: 'portal.actions.login' }),
+              },
               render: (_, dom) => dom.pop(),
               submitButtonProps: {
                 size: 'large',
@@ -60,8 +66,15 @@ export default () => {
             <ProFormText
               fieldProps={{ size: 'large', prefix: <UserOutlined /> }}
               name={['user_name']}
-              placeholder="请输入用户名"
-              rules={[{ required: true, message: '请输入用户名!' }]}
+              placeholder={intl.formatMessage({ id: 'portal.login.username' })}
+              rules={[
+                {
+                  required: true,
+                  message:
+                    intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                    intl.formatMessage({ id: 'portal.login.username' }),
+                },
+              ]}
             />
             <ProFormText.Password
               fieldProps={{
@@ -69,20 +82,30 @@ export default () => {
                 prefix: <LockOutlined />,
               }}
               name={['password']}
-              placeholder="请输入密码"
-              rules={[{ required: true, message: '请输入密码!' }]}
+              placeholder={intl.formatMessage({ id: 'portal.login.password' })}
+              rules={[
+                {
+                  required: true,
+                  message:
+                    intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                    intl.formatMessage({ id: 'portal.login.password' }),
+                },
+              ]}
             />
             <div style={{ marginBottom: 24 }}>
               <ProFormCheckbox noStyle name="autoLogin">
-                自动登录
+                {intl.formatMessage({ id: 'portal.login.rememberme' })}
               </ProFormCheckbox>
               <Link style={{ float: 'right' }} to="/fetch_password">
-                忘记密码
+                {intl.formatMessage({ id: 'portal.forgot.title' })}
               </Link>
             </div>
           </ProForm>
         </Tabs.TabPane>
-        <Tabs.TabPane tab="注册" key="join">
+        <Tabs.TabPane
+          tab={intl.formatMessage({ id: 'portal.join.title' })}
+          key="join"
+        >
           <ProForm
             form={joinForm}
             onFinish={async (data) => {
@@ -95,7 +118,9 @@ export default () => {
               }
             }}
             submitter={{
-              searchConfig: { submitText: '提交' },
+              searchConfig: {
+                submitText: intl.formatMessage({ id: 'portal.actions.join' }),
+              },
               render: (_, dom) => dom.pop(),
               submitButtonProps: { size: 'large', style: { width: '100%' } },
             }}
@@ -103,22 +128,43 @@ export default () => {
             <ProFormText
               fieldProps={{ size: 'large', prefix: <UserOutlined /> }}
               name={['user_name']}
-              placeholder="请输入用户名"
-              rules={[{ required: true, message: '请输入用户名!' }]}
+              placeholder={intl.formatMessage({ id: 'portal.login.username' })}
+              rules={[
+                {
+                  required: true,
+                  message:
+                    intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                    intl.formatMessage({ id: 'portal.login.username' }),
+                },
+              ]}
             />
             <ProFormText.Password
               fieldProps={{ size: 'large', prefix: <LockOutlined /> }}
               name={['password']}
-              placeholder="请输入密码"
-              rules={[{ required: true, message: '请输入密码!' }]}
+              placeholder={intl.formatMessage({ id: 'portal.login.password' })}
+              rules={[
+                {
+                  required: true,
+                  message:
+                    intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                    intl.formatMessage({ id: 'portal.login.password' }),
+                },
+              ]}
             />
             <ProFormText.Password
               fieldProps={{ size: 'large', prefix: <LockOutlined /> }}
               dependencies={['password']}
               name={['confirm_password']}
-              placeholder="请输入确认密码"
+              placeholder={intl.formatMessage({
+                id: 'portal.join.confirm_password',
+              })}
               rules={[
-                { required: true, message: '请输入确认密码!' },
+                {
+                  required: true,
+                  message:
+                    intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                    intl.formatMessage({ id: 'portal.join.confirm_password' }),
+                },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (!value || getFieldValue(['password']) === value) {
@@ -126,7 +172,9 @@ export default () => {
                     }
                     return Promise.reject(
                       new Error(
-                        'The two passwords that you entered do not match!',
+                        intl.formatMessage({
+                          id: 'portal.join.not_match_password',
+                        }),
                       ),
                     );
                   },

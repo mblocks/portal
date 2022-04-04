@@ -1,3 +1,4 @@
+import { useIntl } from 'umi';
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { message, PageHeader } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
@@ -5,10 +6,10 @@ import { updatePassword } from '@/services/account';
 
 export default () => {
   const [form] = ProForm.useForm();
-
+  const intl = useIntl();
   return (
     <>
-      <PageHeader title="Change password" />
+      <PageHeader title={intl.formatMessage({ id: 'portal.security.title' })} />
       <ProForm
         form={form}
         style={{ width: '50%' }}
@@ -17,12 +18,14 @@ export default () => {
           if (result.errors) {
             form.setFields(result.errors);
           } else {
-            message.success('修改成功');
+            message.success(
+              intl.formatMessage({ id: 'portal.messages.success' }),
+            );
           }
         }}
         submitter={{
           searchConfig: {
-            submitText: '保存',
+            submitText: intl.formatMessage({ id: 'portal.actions.save' }),
           },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
@@ -36,12 +39,14 @@ export default () => {
             prefix: <LockOutlined />,
           }}
           name={['password']}
-          label="Old password"
+          label={intl.formatMessage({ id: 'portal.security.old_password' })}
           placeholder=""
           rules={[
             {
               required: true,
-              message: 'Please input old password!',
+              message:
+                intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                intl.formatMessage({ id: 'portal.security.old_password' }),
             },
           ]}
         />
@@ -51,12 +56,14 @@ export default () => {
             prefix: <LockOutlined />,
           }}
           name={['new_password']}
-          label="New password"
+          label={intl.formatMessage({ id: 'portal.security.new_password' })}
           placeholder=""
           rules={[
             {
               required: true,
-              message: 'Please input new password!',
+              message:
+                intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                intl.formatMessage({ id: 'portal.security.new_password' }),
             },
           ]}
         />
@@ -67,12 +74,14 @@ export default () => {
           }}
           dependencies={['new_password']}
           name={['confirm_new_password']}
-          label="Confirm new password"
+          label={intl.formatMessage({ id: 'portal.security.confirm_password' })}
           placeholder=""
           rules={[
             {
               required: true,
-              message: 'Please input confirm new password!',
+              message:
+                intl.formatMessage({ id: 'portal.placeholder.input' }) +
+                intl.formatMessage({ id: 'portal.security.confirm_password' }),
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
